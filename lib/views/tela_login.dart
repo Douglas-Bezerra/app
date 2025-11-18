@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/views/tela_login.dart';
+import 'package:myapp/views/tela_conversao.dart';
+import 'package:myapp/views/tela_cadastro.dart';
 
-class TelaCadastro extends StatefulWidget {
-  const TelaCadastro({super.key});
+class TelaLogin extends StatefulWidget {
+  const TelaLogin({super.key});
 
   @override
-  State<TelaCadastro> createState() => _TelaLoginState();
+  State<TelaLogin> createState() => _TelaLoginState();
 }
 
-class _TelaLoginState extends State<TelaCadastro> {
+class _TelaLoginState extends State<TelaLogin> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Chave para validação
 
-  void _fazerRegistro() async {
+  void _fazerAutenticacao() async {
 
 
   }
@@ -90,7 +90,7 @@ class _TelaLoginState extends State<TelaCadastro> {
                 const SizedBox(height: 40.0),
 
                 ElevatedButton(
-                  onPressed: _fazerRegistro,
+                  onPressed: _fazerAutenticacao,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     textStyle: const TextStyle(fontSize: 18),
@@ -106,16 +106,21 @@ class _TelaLoginState extends State<TelaCadastro> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TelaDeCadastro()),
+                      MaterialPageRoute(builder: (context) => TelaConversao()),
                     );
                   },
+                  
+                  
                   child: const Text(
                     "Não possui conta? Faça seu cadastro.",
+                    
                     style: TextStyle(
                       color: Color.fromARGB(255, 0, 33, 150),
                       fontSize: 17.0,
                       decoration: TextDecoration.underline,
+                      
                     ),
+                    
                   ),
                 ),
               ],
