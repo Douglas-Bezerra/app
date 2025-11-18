@@ -12,11 +12,10 @@ class _TelaLoginState extends State<TelaCadastro> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Chave para validação
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // Chave para validação
 
   void _fazerRegistro() async {
-
 
   }
 
@@ -100,23 +99,7 @@ class _TelaLoginState extends State<TelaCadastro> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  child: const Text('ENTRAR'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TelaDeCadastro()),
-                    );
-                  },
-                  child: const Text(
-                    "Não possui conta? Faça seu cadastro.",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 33, 150),
-                      fontSize: 17.0,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                  child: const Text('Criar Conta'),
                 ),
               ],
             ),

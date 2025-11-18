@@ -15,9 +15,17 @@ class _TelaLoginState extends State<TelaLogin> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Chave para validação
 
-  void _fazerAutenticacao() async {
-
-
+ void _fazerAutenticacao() async {
+    if (_formKey.currentState!.validate()) {
+      // ... (Simulação de Autenticação) ...
+    
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TelaConversao(),
+        ),
+      );
+    }
   }
 
   @override
@@ -102,25 +110,25 @@ class _TelaLoginState extends State<TelaLogin> {
                   ),
                   child: const Text('ENTRAR'),
                 ),
+
+                const SizedBox(height: 10.0),
+
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TelaConversao()),
+                      MaterialPageRoute(
+                        builder: (context) => const TelaCadastro(),
+                      ),
                     );
                   },
-                  
-                  
                   child: const Text(
                     "Não possui conta? Faça seu cadastro.",
-                    
                     style: TextStyle(
                       color: Color.fromARGB(255, 0, 33, 150),
                       fontSize: 17.0,
                       decoration: TextDecoration.underline,
-                      
                     ),
-                    
                   ),
                 ),
               ],
