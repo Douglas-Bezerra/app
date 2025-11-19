@@ -16,6 +16,7 @@ class _TelaLoginState extends State<TelaCadastro> {
       GlobalKey<FormState>(); // Chave para validação
 
   void _fazerRegistro() async {
+    
 
   }
 
@@ -44,7 +45,7 @@ class _TelaLoginState extends State<TelaCadastro> {
                 const Padding(
                   padding: EdgeInsets.all(45.0),
                   child: Text(
-                    'Faça seu Login!',
+                    'Seja Bem Vindo! Crie sua conta',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 28,
