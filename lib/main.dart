@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SqfliteController().initDb();
 
-  runApp(ConversorMoedasApp());
+  runApp(const ConversorMoedasApp());
 }
 
 class ConversorMoedasApp extends StatelessWidget {
@@ -15,13 +15,7 @@ class ConversorMoedasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text("Conversor de Moedas")),
-          backgroundColor: const Color.fromARGB(255, 255, 157, 19),
-        ),
-        body: const TelaLogin(),
-      ),
+      home: const TelaLogin(),
       debugShowCheckedModeBanner: false,
     );
   }

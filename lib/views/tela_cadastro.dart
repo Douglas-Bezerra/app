@@ -1,23 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/controllers/sqflite_controller.dart';
+import 'package:myapp/models/users_model.dart';
 import 'package:myapp/views/tela_login.dart';
 
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
 
   @override
-  State<TelaCadastro> createState() => _TelaLoginState();
+  State<TelaCadastro> createState() => _TelaCadastroState();
 }
 
-class _TelaLoginState extends State<TelaCadastro> {
+class _TelaCadastroState extends State<TelaCadastro> {
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>(); // Chave para validação
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void _fazerRegistro() async {
-    
+    if (!_formKey.currentState!.validate()) return;
 
+    final email = _emailController.text.trim();
+    final senha = _passwordController.text.trim();
+
+    final controller = SqfliteController.instance;
+    final usuarios = await controller.getUsers();
+
+    // Verifica se o e-mail já existe
+    final existe = usuarios.any(
+      (u) => u.email.toLowerCase() == email.toLowerCase(),
+    );
+
+    if (existe) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Este e-mail já está cadastrado.")),
+      );
+      return;
+    }
+
+    // Criar objeto usuário
+    User novo = User(email: email, password: senha);
+
+    // Inserir no banco
+    await controller.insertUser(novo);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Cadastro realizado com sucesso!")),
+    );
+
+    // Voltar para a tela de login
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const TelaLogin()),
+    );
   }
 
   @override
@@ -27,7 +62,6 @@ class _TelaLoginState extends State<TelaCadastro> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          // 5. Envolvendo a UI em um Form para validação
           child: Form(
             key: _formKey,
             child: Column(
@@ -42,6 +76,7 @@ class _TelaLoginState extends State<TelaCadastro> {
                     width: 100,
                   ),
                 ),
+
                 const Padding(
                   padding: EdgeInsets.all(45.0),
                   child: Text(
@@ -56,35 +91,38 @@ class _TelaLoginState extends State<TelaCadastro> {
                 ),
 
                 TextFormField(
-                  // Alterado para TextFormField para validação
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Email',
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 226, 135, 0),
-                      ),
-                    ),
+                    border: OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Informe seu email";
+                    }
+                    if (!value.contains("@") || !value.contains(".")) {
+                      return "Email inválido";
+                    }
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 16.0),
 
                 TextFormField(
-                  // Alterado para TextFormField para validação
                   controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Senha',
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 226, 135, 0),
-                      ),
-                    ),
+                    border: OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Informe sua senha";
+                    }
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 40.0),

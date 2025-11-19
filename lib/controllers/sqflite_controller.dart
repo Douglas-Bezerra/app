@@ -2,6 +2,12 @@ import 'package:sqflite/sqflite.dart';
 import 'package:myapp/models/users_model.dart';
 
 class SqfliteController {
+  // -------- SINGLETON --------
+  static final SqfliteController instance = SqfliteController._internal();
+  SqfliteController._internal();
+  factory SqfliteController() => instance;
+  // ---------------------------
+
   late final Database _db;
 
   Future<void> initDb() async {
@@ -20,7 +26,10 @@ class SqfliteController {
   }
 
   Future<void> insertUser(User user) async {
-    await _db.insert("User", {'email': user.email, 'password': user.password});
+    await _db.insert("User", {
+      'email': user.email,
+      'password': user.password,
+    });
     printDatabase();
   }
 

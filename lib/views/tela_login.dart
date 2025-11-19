@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/controllers/sqflite_controller.dart';
 import 'package:myapp/views/tela_conversao.dart';
 import 'package:myapp/views/tela_cadastro.dart';
 
@@ -13,12 +14,34 @@ class _TelaLoginState extends State<TelaLogin> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Chave para validação
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
- void _fazerAutenticacao() async {
+  void _fazerAutenticacao() async {
     if (_formKey.currentState!.validate()) {
-      // ... (Simulação de Autenticação) ...
-    
+      
+      final email = _emailController.text.trim();
+      final senha = _passwordController.text.trim();
+
+      final controller = SqfliteController.instance;
+      final usuarios = await controller.getUsers();
+
+      // Verificando se existe email
+      final user = usuarios.where((u) => u.email == email).firstOrNull;
+
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Email não encontrado")),
+        );
+        return;
+      }
+
+      if (user.password != senha) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Senha incorreta")),
+        );
+        return;
+      }
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -35,7 +58,6 @@ class _TelaLoginState extends State<TelaLogin> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          // 5. Envolvendo a UI em um Form para validação
           child: Form(
             key: _formKey,
             child: Column(
@@ -63,8 +85,8 @@ class _TelaLoginState extends State<TelaLogin> {
                   ),
                 ),
 
+                // EMAIL
                 TextFormField(
-                  // Alterado para TextFormField para validação
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -76,12 +98,21 @@ class _TelaLoginState extends State<TelaLogin> {
                       ),
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Informe seu email";
+                    }
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return "Email inválido";
+                    }
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 16.0),
 
+                // SENHA
                 TextFormField(
-                  // Alterado para TextFormField para validação
                   controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
@@ -93,6 +124,15 @@ class _TelaLoginState extends State<TelaLogin> {
                       ),
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Informe sua senha";
+                    }
+                    if (value.length < 4) {
+                      return "A senha deve ter ao menos 4 caracteres";
+                    }
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 40.0),
