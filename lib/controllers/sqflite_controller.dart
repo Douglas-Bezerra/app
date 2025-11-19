@@ -25,7 +25,7 @@ class SqfliteController {
     );
   }
 
-  Future<void> insertUser(User user) async {
+  Future<void> insertUser(UsersModel user) async {
     await _db.insert("User", {
       'email': user.email,
       'password': user.password,
@@ -33,10 +33,10 @@ class SqfliteController {
     printDatabase();
   }
 
-  Future<List<User>> getUsers() async {
+  Future<List<UsersModel>> getUsers() async {
     List<Map<String, dynamic>> users = await _db.query('User');
     printDatabase();
-    return users.map((e) => User.fromJson(e)).toList();
+    return users.map((e) => UsersModel.fromJson(e)).toList();
   }
 
   Future<void> deleteUser(int userId) async {
@@ -44,7 +44,7 @@ class SqfliteController {
     printDatabase();
   }
 
-  Future<void> updateUser(User user) async {
+  Future<void> updateUser(UsersModel user) async {
     await _db.update(
       'User',
       {'email': user.email, 'password': user.password},

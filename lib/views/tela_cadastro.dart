@@ -39,7 +39,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
     }
 
     // Criar objeto usuário
-    User novo = User(email: email, password: senha);
+    UsersModel novo = UsersModel(email: email, password: senha);
 
     // Inserir no banco
     await controller.insertUser(novo);
