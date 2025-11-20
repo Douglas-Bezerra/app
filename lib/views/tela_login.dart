@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:myapp/controllers/sqflite_controller.dart';
 import 'package:myapp/views/tela_conversao.dart';
 import 'package:myapp/views/tela_cadastro.dart';
@@ -11,6 +12,7 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
+  
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -64,6 +66,7 @@ class _TelaLoginState extends State<TelaLogin> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+
                 const Padding(
                   padding: EdgeInsets.only(top: 50.0),
                   child: Image(
@@ -72,6 +75,7 @@ class _TelaLoginState extends State<TelaLogin> {
                     width: 100,
                   ),
                 ),
+
                 const Padding(
                   padding: EdgeInsets.all(45.0),
                   child: Text(
@@ -85,17 +89,13 @@ class _TelaLoginState extends State<TelaLogin> {
                   ),
                 ),
 
-                // EMAIL
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(borderSide: BorderSide()),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 226, 135, 0),
-                      ),
+                    focusedBorder: OutlineInputBorder(                   
                     ),
                   ),
                   validator: (value) {
@@ -111,7 +111,6 @@ class _TelaLoginState extends State<TelaLogin> {
 
                 const SizedBox(height: 16.0),
 
-                // SENHA
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
@@ -119,9 +118,6 @@ class _TelaLoginState extends State<TelaLogin> {
                     labelText: 'Senha',
                     border: OutlineInputBorder(borderSide: BorderSide()),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 226, 135, 0),
-                      ),
                     ),
                   ),
                   validator: (value) {

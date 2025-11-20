@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+
 import 'package:myapp/models/users_model.dart';
 
 class SqfliteController {
@@ -18,8 +19,7 @@ class SqfliteController {
       path,
       version: 1,
       onCreate: (Database db, int version) async {
-        await db.execute(
-          'CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)',
+        await db.execute('CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)',
         );
       },
     );

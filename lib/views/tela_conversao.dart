@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:myapp/services/api_services.dart';
 import 'package:myapp/models/cotacoes_model.dart';
 
@@ -10,6 +11,7 @@ class TelaConversao extends StatefulWidget {
 }
 
 class _TelaConversao extends State<TelaConversao> {
+  
   var _codeController = TextEditingController();
   var _codeinController = TextEditingController();
   var _highController = TextEditingController();
@@ -36,6 +38,7 @@ class _TelaConversao extends State<TelaConversao> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  
                   Expanded(
                     flex: 2,
                     child: TextField(
@@ -46,7 +49,9 @@ class _TelaConversao extends State<TelaConversao> {
                       ),
                     ),
                   ),
+
                   SizedBox(width: 8),
+
                   Expanded(
                     flex: 2,
                     child: TextField(
@@ -57,7 +62,9 @@ class _TelaConversao extends State<TelaConversao> {
                       ),
                     ),
                   ),
+
                   SizedBox(width: 8),
+
                   Expanded(
                     flex: 3,
                     child: TextField(
@@ -69,7 +76,9 @@ class _TelaConversao extends State<TelaConversao> {
                       ),
                     ),
                   ),
+
                   SizedBox(width: 8),
+
                   ElevatedButton(
                     onPressed: () async {
                       try {
@@ -122,8 +131,7 @@ class _TelaConversao extends State<TelaConversao> {
 
               SizedBox(height: 20),
 
-              const Text(
-                "Detalhes da Cotação",
+              const Text("Detalhes da Cotação",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
 
@@ -170,8 +178,6 @@ class _TelaConversao extends State<TelaConversao> {
                   border: OutlineInputBorder(),
                 ),
               ),
-
-              SizedBox(height: 8),
             ],
           ),
         ),

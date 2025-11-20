@@ -1,6 +1,7 @@
 import "dart:convert";
 import "dart:developer";
 import "package:http/http.dart" as http;
+
 import "package:myapp/models/cotacoes_model.dart";
 
 class ApiServices {

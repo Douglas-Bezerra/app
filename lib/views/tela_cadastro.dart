@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:myapp/controllers/sqflite_controller.dart';
 import 'package:myapp/models/users_model.dart';
 import 'package:myapp/views/tela_login.dart';
@@ -11,7 +12,7 @@ class TelaCadastro extends StatefulWidget {
 }
 
 class _TelaCadastroState extends State<TelaCadastro> {
-
+  
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -41,14 +42,12 @@ class _TelaCadastroState extends State<TelaCadastro> {
     // Criar objeto usuário
     UsersModel novo = UsersModel(email: email, password: senha);
 
-    // Inserir no banco
     await controller.insertUser(novo);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Cadastro realizado com sucesso!")),
     );
 
-    // Voltar para a tela de login
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const TelaLogin()),
@@ -68,6 +67,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                
                 const Padding(
                   padding: EdgeInsets.only(top: 10.0),
                   child: Image(
