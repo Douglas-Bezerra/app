@@ -27,7 +27,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
     final controller = SqfliteController.instance;
     final usuarios = await controller.getUsers();
 
-    // Verifica se o e-mail já existe
     final existe = usuarios.any(
       (u) => u.email.toLowerCase() == email.toLowerCase(),
     );
@@ -39,7 +38,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
       return;
     }
 
-    // Criar objeto usuário
     UsersModel novo = UsersModel(email: email, password: senha);
 
     await controller.insertUser(novo);

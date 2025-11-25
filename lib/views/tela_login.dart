@@ -27,7 +27,6 @@ class _TelaLoginState extends State<TelaLogin> {
       final controller = SqfliteController.instance;
       final usuarios = await controller.getUsers();
 
-      // Verificando se existe email
       final user = usuarios.where((u) => u.email == email).firstOrNull;
 
       if (user == null) {

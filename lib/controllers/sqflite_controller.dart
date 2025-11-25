@@ -3,11 +3,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:myapp/models/users_model.dart';
 
 class SqfliteController {
+  
   // -------- SINGLETON --------
   static final SqfliteController instance = SqfliteController._internal();
   SqfliteController._internal();
   factory SqfliteController() => instance;
-  // ---------------------------
 
   late final Database _db;
 
